@@ -1,0 +1,6 @@
+---
+- name: Install and configure Podman
+  hosts: podman_servers
+  become: yes
+  roles:
+    - podman
