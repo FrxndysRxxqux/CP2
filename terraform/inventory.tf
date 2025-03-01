@@ -11,13 +11,18 @@ resource "local_file" "ansible_inventory" {
     {
       podman_vm_ip        = azurerm_public_ip.podman_pip.ip_address
       rootuser            = var.podman_vm_username
-      ssh_key_path        = "~/.ssh/id_rsa"
+      ssh_key_path        = "../.ssh/vm_key"
       acr_username        = azurerm_container_registry.acr.admin_username
       acr_password        = azurerm_container_registry.acr.admin_password
       acr_linkio         = azurerm_container_registry.acr.login_server
     }
   )
   filename = "../ansible/inventory.ini"
+  #fuerzo dependencia de recursos para poder obtener los valores de estos
+  depends_on = [
+    azurerm_public_ip.podman_pip,
+    azurerm_container_registry.acr
+  ]
 }
 
 

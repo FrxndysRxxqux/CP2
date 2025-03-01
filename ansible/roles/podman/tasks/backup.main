@@ -7,7 +7,12 @@
   file:
     path: /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list
     state: absent
-    
+
+- name: Remove old GPG key if exists
+  apt_key:
+    url: "https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable/xUbuntu_18.04/Release.key"
+    state: absent
+
   ignore_errors: yes
 - name: Install required packages
   apt:
@@ -20,7 +25,6 @@
       - azure-cli
     state: present
 
-#podman 3.4
 - name: Add Podman repository
   shell: |
     echo "deb http://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/xUbuntu_20.04/ /" > /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list
@@ -37,14 +41,14 @@
     name: podman
     state: present
 
-- name: Verify Podman version
-  command: podman --version
-  register: podman_version
+- name: Enable user linger for adminuser
+  command: loginctl enable-linger {{ ansible_user }}
+  ignore_errors: yes
 
 - name: Login to quay.io using existing secret called password
   containers.podman.podman_login:
     username: "{{ acr_username }}"
-    password: "{{ acr_password }}"
+    secret: "{{ acr_password }}"
     registry: "{{ansible_acr_linkio}}"
     
 - name: Download podman image
@@ -59,4 +63,6 @@
     state: started
     ports:
       - "8080:80"  # Mapea el puerto 8080 del host al 80 del contenedor
+    # name: "{{ ansible_acr_linkio }}/nginx-custom:v1"
+    # state: present
 

@@ -3,6 +3,10 @@ resource "azurerm_network_security_group" "container_nsg" {
   location            = var.location_name
   resource_group_name = var.resource_group_name
   
+  /* 
+    Regla de seguridad que permite el tráfico entrante TCP en el puerto 22 (SSH)
+    desde cualquier origen hacia cualquier destino
+  */
   security_rule {
     name                       = "SSH"
     priority                   = 100
@@ -15,6 +19,10 @@ resource "azurerm_network_security_group" "container_nsg" {
     destination_address_prefix = "*"
   }
 
+  /* 
+    Regla de seguridad que permite el tráfico entrante TCP en los puertos 8080-8090 
+    desde cualquier origen hacia cualquier destino
+  */
   security_rule {
     name                       = "ContainerPorts"
     priority                   = 101
@@ -26,4 +34,8 @@ resource "azurerm_network_security_group" "container_nsg" {
     source_address_prefix     = "*"
     destination_address_prefix = "*"
   }
+
+  #Exige dependecia de rg (resource group)
+  depends_on = [azurerm_resource_group.rg] 
+
 } 

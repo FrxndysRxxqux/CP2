@@ -4,7 +4,8 @@ resource "azurerm_public_ip" "podman_pip" {
   name                = var.podman_pip_name
   resource_group_name = var.resource_group_name
   location            = var.location_name
-  allocation_method   = "Dynamic"
+  allocation_method   = "Static"
+  # allocation_method   = "Dynamic"
   
   depends_on = [azurerm_resource_group.rg]
 }
