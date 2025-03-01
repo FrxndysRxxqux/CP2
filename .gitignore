@@ -1,0 +1,5 @@
+.ssh/
+.terraform/
+.terraform.lock.hcl
+terraform.tf.state.backup
+
