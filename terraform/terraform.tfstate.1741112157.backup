@@ -1,0 +1,176 @@
+{
+  "version": 4,
+  "terraform_version": "1.10.5",
+  "serial": 457,
+  "lineage": "6df19eb4-83c8-38d8-f850-2d9bc4bc5e4d",
+  "outputs": {
+    "rg_id": {
+      "value": "/subscriptions/bbf7b9a4-208f-4b13-868e-150530fa4eae/resourceGroups/rg-infraestructura",
+      "type": "string"
+    }
+  },
+  "resources": [
+    {
+      "mode": "managed",
+      "type": "azurerm_resource_group",
+      "name": "rg",
+      "provider": "provider[\"registry.terraform.io/hashicorp/azurerm\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "id": "/subscriptions/bbf7b9a4-208f-4b13-868e-150530fa4eae/resourceGroups/rg-infraestructura",
+            "location": "westeurope",
+            "managed_by": "",
+            "name": "rg-infraestructura",
+            "tags": {},
+            "timeouts": null
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjo1NDAwMDAwMDAwMDAwLCJkZWxldGUiOjU0MDAwMDAwMDAwMDAsInJlYWQiOjMwMDAwMDAwMDAwMCwidXBkYXRlIjo1NDAwMDAwMDAwMDAwfX0="
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "kubernetes_persistent_volume",
+      "name": "pv",
+      "provider": "provider[\"registry.terraform.io/hashicorp/kubernetes\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "id": "my-aks-pv",
+            "metadata": [
+              {
+                "annotations": {},
+                "generation": 0,
+                "labels": {},
+                "name": "my-aks-pv",
+                "resource_version": "19172",
+                "uid": "b8157549-7f5b-4fc1-938e-410991f95a58"
+              }
+            ],
+            "spec": [
+              {
+                "access_modes": [
+                  "ReadWriteOnce"
+                ],
+                "capacity": {
+                  "storage": "10Gi"
+                },
+                "claim_ref": [
+                  {
+                    "name": "my-aks-pvc",
+                    "namespace": "default"
+                  }
+                ],
+                "mount_options": [],
+                "node_affinity": [],
+                "persistent_volume_reclaim_policy": "Retain",
+                "persistent_volume_source": [
+                  {
+                    "aws_elastic_block_store": [],
+                    "azure_disk": [
+                      {
+                        "caching_mode": "ReadWrite",
+                        "data_disk_uri": "/subscriptions/bbf7b9a4-208f-4b13-868e-150530fa4eae/resourceGroups/rg-infraestructura/providers/Microsoft.Compute/disks/my-aks-disk",
+                        "disk_name": "my-aks-disk",
+                        "fs_type": "",
+                        "kind": "Managed",
+                        "read_only": false
+                      }
+                    ],
+                    "azure_file": [],
+                    "ceph_fs": [],
+                    "cinder": [],
+                    "csi": [],
+                    "fc": [],
+                    "flex_volume": [],
+                    "flocker": [],
+                    "gce_persistent_disk": [],
+                    "glusterfs": [],
+                    "host_path": [],
+                    "iscsi": [],
+                    "local": [],
+                    "nfs": [],
+                    "photon_persistent_disk": [],
+                    "quobyte": [],
+                    "rbd": [],
+                    "vsphere_volume": []
+                  }
+                ],
+                "storage_class_name": "my-storage-class",
+                "volume_mode": "Filesystem"
+              }
+            ],
+            "timeouts": null
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjozMDAwMDAwMDAwMDB9fQ==",
+          "dependencies": [
+            "azurerm_container_registry.acr",
+            "azurerm_kubernetes_cluster.aks",
+            "azurerm_managed_disk.aks_disk",
+            "azurerm_resource_group.rg"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "kubernetes_persistent_volume_claim",
+      "name": "pvc",
+      "provider": "provider[\"registry.terraform.io/hashicorp/kubernetes\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "id": "default/my-aks-pvc",
+            "metadata": [
+              {
+                "annotations": {},
+                "generate_name": "",
+                "generation": 0,
+                "labels": {},
+                "name": "my-aks-pvc",
+                "namespace": "default",
+                "resource_version": "1746",
+                "uid": "7d46e26f-db38-4a84-9107-fd41ed7aeb21"
+              }
+            ],
+            "spec": [
+              {
+                "access_modes": [
+                  "ReadWriteOnce"
+                ],
+                "resources": [
+                  {
+                    "limits": {},
+                    "requests": {
+                      "storage": "10Gi"
+                    }
+                  }
+                ],
+                "selector": [],
+                "storage_class_name": "my-storage-class",
+                "volume_mode": "Filesystem",
+                "volume_name": "my-aks-pv"
+              }
+            ],
+            "timeouts": null,
+            "wait_until_bound": true
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjozMDAwMDAwMDAwMDB9fQ==",
+          "dependencies": [
+            "azurerm_container_registry.acr",
+            "azurerm_kubernetes_cluster.aks",
+            "azurerm_resource_group.rg"
+          ]
+        }
+      ]
+    }
+  ],
+  "check_results": null
+}

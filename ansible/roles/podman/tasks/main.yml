@@ -40,18 +40,18 @@
 - name: Verify Podman version
   command: podman --version
   register: podman_version
-
+#inicio/login en el acr
 - name: Login to quay.io using existing secret called password
   containers.podman.podman_login:
     username: "{{ acr_username }}"
     password: "{{ acr_password }}"
     registry: "{{ansible_acr_linkio}}"
-    
+#descarga de imagen 
 - name: Download podman image
   containers.podman.podman_image:
     name: "{{ ansible_acr_linkio }}/nginx-custom:v1"
     state: present
-
+#lanzar imagen en el container con mapeo de puertos
 - name: Launch nginx container with port mapping
   containers.podman.podman_container:
     name: nginx-custom-container

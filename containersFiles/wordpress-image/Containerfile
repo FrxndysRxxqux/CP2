@@ -1,0 +1,6 @@
+# Usamos la imagen oficial de WordPress con Apache
+FROM docker.io/wordpress:latest
+# Exponemos el puerto 80 para que se pueda acceder al servidor web de WordPress
+EXPOSE 80
+# Comando por defecto: iniciar Apache
+CMD ["apache2-foreground"]

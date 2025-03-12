@@ -41,18 +41,11 @@ variable "podman_vm_username"{
   default = "adminuser"
 }
 
-#acr aks
+#acr 
 variable "arc_name"{
   default ="myContainerRegistryfroque"
 }
 
-variable "aks_name"{
-  default ="myaksclusterfroque"
-}
-
-variable "aks_dns_prefix"{
-  default ="myakscluster"
-}
 
 variable "acr_username" {
   description = "Usuario del Azure Container Registry"
@@ -71,6 +64,44 @@ variable "acr_linkio" {
   type        = string
   default     = ""  // Se llenará con el output de ACR
 }
+
+##AKS
+variable "aks_name"{
+  default ="myaksclusterfroque"
+}
+
+variable "aks_dns_prefix_name"{
+  default ="myakscluster"
+}
+
+variable "aks_username"{
+  description = "User root of aks machine"
+  default = "adminuser"
+
+}
+
+variable "owner_object_id"{
+  description = "id of owner az user"
+  default = "c02debe1-afb8-46a9-b387-d763b580bc20"
+}
+
+variable "password_strong"{
+  description = "password for aks add group"
+  default = "Paswrod@Strong!.#"
+}
+
+
+variable "kubernetes_version" {
+  type        = string
+  description = "Kubernetes version"
+  default=  "1.26.3"
+}
+variable "system_node_count" {
+  type        = number
+  description = "Number of AKS worker nodes"
+  default = 1
+}
+
 
 
 # variable "registry_name" {

@@ -1,0 +1,11 @@
+# Usamos la imagen oficial de MySQL
+FROM docker.io/mysql:latest
+
+# Configurar las credenciales de la base de datos y el nombre de la base de datos
+ENV MYSQL_ROOT_PASSWORD=rootpassword
+ENV MYSQL_DATABASE=wordpress
+ENV MYSQL_USER=wordpress_admin
+ENV MYSQL_PASSWORD=wordpress_admin_password
+
+# Exponer el puerto 3306 de MySQL
+EXPOSE 3306

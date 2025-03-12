@@ -37,5 +37,4 @@ resource "azurerm_network_security_group" "container_nsg" {
 
   #Exige dependecia de rg (resource group)
   depends_on = [azurerm_resource_group.rg] 
-
 } 
