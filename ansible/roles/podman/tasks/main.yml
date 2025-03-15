@@ -37,20 +37,43 @@
     name: podman
     state: present
 
+- name: Install skopeo
+  apt:
+    name: skopeo
+    state: present
+
 - name: Verify Podman version
   command: podman --version
   register: podman_version
+
 #inicio/login en el acr
 - name: Login to quay.io using existing secret called password
   containers.podman.podman_login:
     username: "{{ acr_username }}"
     password: "{{ acr_password }}"
     registry: "{{ansible_acr_linkio}}"
+
+- name: Push WordPress image to ACR using Skopeo
+  command: >
+    skopeo copy docker://{{dockerhub_global}}/wordpress:v1
+    docker://{{ansible_acr_linkio}}/wordpress:v1
+
+- name: Push MySQL image to ACR using Skopeo
+  command: >
+    skopeo copy docker://{{dockerhub_global}}/mysql:v1
+    docker://{{ansible_acr_linkio}}/mysql:v1
+
+- name: Push Nginx image to ACR using Skopeo
+  command: >
+    skopeo copy docker://{{dockerhub_global}}/nginx-custom:v1
+    docker://{{ansible_acr_linkio}}/nginx-custom:v1
+
 #descarga de imagen 
-- name: Download podman image
+- name: Download/pull nginx-custom image
   containers.podman.podman_image:
     name: "{{ ansible_acr_linkio }}/nginx-custom:v1"
     state: present
+
 #lanzar imagen en el container con mapeo de puertos
 - name: Launch nginx container with port mapping
   containers.podman.podman_container:

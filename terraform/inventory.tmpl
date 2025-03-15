@@ -1,5 +1,5 @@
 [podman_servers]
-podman_vm ansible_host=${podman_vm_ip} ansible_user=${rootuser} acr_password=${acr_password} acr_username=${acr_username} ansible_acr_linkio=${acr_linkio} ansible_ssh_private_key_file=${ssh_key_path}
+podman_vm ansible_host=${podman_vm_ip} ansible_user=${rootuser} acr_password=${acr_password} acr_username=${acr_username} ansible_acr_linkio=${acr_linkio} ansible_ssh_private_key_file=${ssh_key_path} dockerhub_global=${dockerhub_global} 
 
 [all_services:children]
 podman_servers
